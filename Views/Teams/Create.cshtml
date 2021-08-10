@@ -15,17 +15,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="JiraBoardUrl" class="control-label"></label>
-                <input asp-for="JiraBoardUrl" class="form-control" />
+                <input type="url" asp-for="JiraBoardUrl" class="form-control" />
                 <span asp-validation-for="JiraBoardUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Git" class="control-label"></label>
-                <input asp-for="Git" class="form-control" />
+                <input type="url" asp-for="Git" class="form-control" />
                 <span asp-validation-for="Git" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Emblem" class="control-label"></label>
-                <input asp-for="Emblem" class="form-control" />
+                <input type="file" asp-for="Emblem" class="form-control" />
                 <span asp-validation-for="Emblem" class="text-danger"></span>
             </div>
             <div class="form-group">
