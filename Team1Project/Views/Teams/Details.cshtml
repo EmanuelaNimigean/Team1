@@ -46,6 +46,31 @@
             <span id="@Model.Id"></span>
         </dd>
     </dl>
+
+    <p>Team @Model.Id: </p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">BirthDate</th>
+                <th scope="col">EmailAddress</th>
+                <th scope="col">Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.Interns.Count; i++)
+            {
+                var intern = Model.Interns[i];
+
+                <tr>
+                    <td>@intern.Name</td>
+                    <td>@intern.BirthDate</td>
+                    <td>@intern.EmailAddress</td>
+                    <td>@intern.getAge()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |

@@ -40,6 +40,10 @@ namespace Team1Project.Controllers
                 return NotFound();
             }
 
+            // obtain interns 
+            List<Intern> interns = await _context.Intern.Where(i => i.TeamId == team.Id).ToListAsync();
+            team.Interns = interns;
+
             return View(team);
         }
 
