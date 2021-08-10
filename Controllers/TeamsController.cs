@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Team1FirstProject.Data;
-using Team1FirstProject.Models;
+using Team1Project.Data;
+using Team1Project.Models;
 
-namespace Team1FirstProject.Controllers
+namespace Team1Project.Controllers
 {
     public class TeamsController : Controller
     {
-        private readonly Team1FirstProjectContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public TeamsController(Team1FirstProjectContext context)
+        public TeamsController(ApplicationDbContext context)
         {
             _context = context;
         }

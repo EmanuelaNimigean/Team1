@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Team1FirstProject.Data;
-using Team1FirstProject.Models;
+using Team1Project.Data;
+using Team1Project.Models;
 
-namespace Team1FirstProject.Controllers
+namespace Team1Project.Controllers
 {
     public class InternsController : Controller
     {
-        private readonly Team1FirstProjectContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public InternsController(Team1FirstProjectContext context)
+        public InternsController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -22,8 +22,8 @@ namespace Team1FirstProject.Controllers
         // GET: Interns
         public async Task<IActionResult> Index()
         {
-            var team1FirstProjectContext = _context.Intern.Include(i => i.Team);
-            return View(await team1FirstProjectContext.ToListAsync());
+            var applicationDbContext = _context.Intern.Include(i => i.Team);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Interns/Details/5
