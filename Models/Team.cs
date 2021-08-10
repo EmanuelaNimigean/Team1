@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,7 +15,7 @@ namespace Team1Project.Models
         public string Emblem { get; set; }
         public string Motto { get; set; }
 
-        public List<Intern> Interns { get; set; }
+        public virtual List<Intern> Interns { get; set; }
 
     }
 }

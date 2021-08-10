@@ -168,13 +168,10 @@ namespace Team1Project.Controllers
                 return -1;
             }
 
-            TimeSpan age;
-            DateTime birthDate;
-            birthDate = intern.BirthDate; //new DateTime (2000,07,11);
-            DateTime zeroTime = new DateTime(1, 1, 1);
-            age = DateTime.Now - birthDate;
-            int years = (zeroTime + age).Year - 1;
-            return years;
+            return intern.getAge();
         }
+
+
+        
     }
 }

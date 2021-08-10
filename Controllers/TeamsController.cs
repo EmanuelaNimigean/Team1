@@ -149,5 +149,56 @@ namespace Team1Project.Controllers
         {
             return _context.Team.Any(e => e.Id == id);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetInfo(int teamId)
+        {
+            var team = await _context.Team
+               .FirstOrDefaultAsync(m => m.Id == teamId);
+
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            return NotFound();
+        }
+
+        [HttpGet]
+        public async Task<double> GetAverageAge(int teamId)
+        {
+            //https://www.brentozar.com/archive/2016/09/select-specific-columns-entity-framework-query/
+            var interns = _context.Intern.Where(i => i.TeamId == teamId);
+
+            if (interns.Count() == 0)
+            {
+                return 0.0;
+            }
+
+            double avgAge = 0.0;
+            foreach (Intern intern in interns)
+            {
+                avgAge += intern.getAge();
+            }
+            avgAge /= interns.Count();
+
+
+            return avgAge;
+        }
+
+        [HttpGet]
+        public async Task<List<Intern>> GetInterns(int teamId)
+        {
+            /*var interns = _context.Intern.Where(i => i.TeamId == teamId);
+*/
+            var team = await _context.Team
+               .FirstOrDefaultAsync(m => m.Id == teamId); 
+            if (team == null)
+            {
+                return null;
+            }
+
+            return team.Interns;
+        }
     }
 }
