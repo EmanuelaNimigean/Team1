@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\parpa\\source\\repos\\Team1\\Team1Project.csproj": {}
+    "C:\\Users\\parpa\\source\\repos\\Team1\\Team1Project\\Team1Project.csproj": {}
   },
   "projects": {
-    "C:\\Users\\parpa\\source\\repos\\Team1\\Team1Project.csproj": {
+    "C:\\Users\\parpa\\source\\repos\\Team1\\Team1Project\\Team1Project.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\parpa\\source\\repos\\Team1\\Team1Project.csproj",
+        "projectUniqueName": "C:\\Users\\parpa\\source\\repos\\Team1\\Team1Project\\Team1Project.csproj",
         "projectName": "Team1Project",
-        "projectPath": "C:\\Users\\parpa\\source\\repos\\Team1\\Team1Project.csproj",
+        "projectPath": "C:\\Users\\parpa\\source\\repos\\Team1\\Team1Project\\Team1Project.csproj",
         "packagesPath": "C:\\Users\\parpa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\parpa\\source\\repos\\Team1\\obj\\",
+        "outputPath": "C:\\Users\\parpa\\source\\repos\\Team1\\Team1Project\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "r1EO8YxRbn6F8OliRzQzhAQSJWnxSQQX9OWii6hmf8rQUetgGaJhBvg5zPQcHREb0mgPRNgLICkVTL85cGdtFA==",
+  "dgSpecHash": "VFsqHuTdbQNl4xV8mNiy2JRSYNCxMm2KUgWICt3Yu9FL/03sqiQRWWaHyFCLAHzbdKUeJPHe4SiToAoRGjDLUg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\parpa\\source\\repos\\Team1\\Team1Project.csproj",
+  "projectFilePath": "C:\\Users\\parpa\\source\\repos\\Team1\\Team1Project\\Team1Project.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\parpa\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\parpa\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.8\\microsoft.aspnetcore.cryptography.internal.5.0.8.nupkg.sha512",
