@@ -18,13 +18,5 @@ namespace Team1Project.Models
         public int TeamId { get; set; }
         public Team Team { get; set; }
 
-        public int GetAge(DateTime birthDate)
-        {
-            TimeSpan age;
-            DateTime zeroTime = new DateTime(1, 1, 1);
-            age = DateTime.Now - this.BirthDate;
-            int years = (zeroTime + age).Year - 1;
-            return years;
-        }
     }
 }

@@ -156,5 +156,25 @@ namespace Team1Project.Controllers
         {
             return _context.Intern.Any(e => e.Id == id);
         }
+
+        [HttpGet]
+        public async Task<int> GetAge(int? id)
+        {
+            var intern = await _context.Intern
+            .Include(i => i.Team)
+            .FirstOrDefaultAsync(m => m.Id == id);
+            if (id == null)
+            {
+                return -1;
+            }
+
+            TimeSpan age;
+            DateTime birthDate;
+            birthDate = intern.BirthDate; //new DateTime (2000,07,11);
+            DateTime zeroTime = new DateTime(1, 1, 1);
+            age = DateTime.Now - birthDate;
+            int years = (zeroTime + age).Year - 1;
+            return years;
+        }
     }
 }
