@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
+using RestSharp;
 using Team1Project.Data;
 using Team1Project.Models;
 
@@ -171,7 +173,60 @@ namespace Team1Project.Controllers
             return intern.getAge();
         }
 
+        public async Task<IActionResult> ListRepos(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        
+            var intern = await _context.Intern
+               .Include(i => i.Team)
+               .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (intern == null)
+            {
+                return NotFound();
+            }
+
+            var username = intern.GithubUsername;
+
+            //apicall to git
+            List<string> repoLinks = GetPublicRepositories(username);
+            
+
+            return View(repoLinks);
+        }
+
+        private List<string> GetPublicRepositories(string username)
+        {
+            var client = new RestClient($"https://api.github.com/users/{username}/repos");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            IRestResponse response = client.Execute(request);
+
+            return ConvertResponseToRepositoriesList(response.Content);
+        }
+
+        [NonAction]
+        public List<string> ConvertResponseToRepositoriesList(string content)
+        {
+            List<string> repoLinks = new List<string>();
+            var json = JObject.Parse(content);
+            var jsonArray = json["full_name"];
+
+            /*foreach (var repo in json)
+            {
+                if (repo["full_name"] == null)
+                                    {
+                    throw new Exception("Username not valid.");
+                }
+
+                
+                repoLinks.Add()
+            }*/
+
+            return repoLinks;
+        }
     }
 }

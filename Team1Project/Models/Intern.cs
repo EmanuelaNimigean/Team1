@@ -17,6 +17,7 @@ namespace Team1Project.Models
 
         public int TeamId { get; set; }
         public Team Team { get; set; }
+        public string GithubUsername { get; set; }
 
         public int getAge()
         {

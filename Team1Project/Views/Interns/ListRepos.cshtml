@@ -1,0 +1,29 @@
+﻿@model List<string>
+
+@section Scripts{
+    <script type="text/javascript" src="~/js/DetailsInterns.js"></script>
+}
+
+@{
+    ViewData["Title"] = "List of repositories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Public repositories of {name}</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Repository name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.Count(); i++)
+        {
+            var intern = Model.ElementAt(i);
+
+            <tr>
+                <td><a href="link">Team1</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
