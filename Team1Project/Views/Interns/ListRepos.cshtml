@@ -9,7 +9,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Public repositories of {name}</h2>
+<h2>Public repositories</h2>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -19,10 +19,12 @@
     <tbody>
         @for (var i = 0; i < Model.Count(); i++)
         {
-            var intern = Model.ElementAt(i);
+            var repo = Model.ElementAt(i);
+            var repositoryArray = repo.Split("/");
+            var repositoryName = repositoryArray[repositoryArray.Length-1];
 
             <tr>
-                <td><a href="link">Team1</a></td>
+                <td><a href="@repo">@repositoryName</a></td>
             </tr>
         }
     </tbody>

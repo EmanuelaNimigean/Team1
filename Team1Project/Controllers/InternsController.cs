@@ -94,7 +94,7 @@ namespace Team1Project.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,BirthDate,EmailAddress,TeamId")] Intern intern)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,BirthDate,EmailAddress,TeamId, GithubUsername")] Intern intern)
         {
             if (id != intern.Id)
             {
@@ -224,7 +224,7 @@ namespace Team1Project.Controllers
                 }
 
 
-                repoLinks.Add(repo["full_name"].ToString());
+                repoLinks.Add($"https://github.com/{repo["full_name"]}");
             }
 
             return repoLinks;
