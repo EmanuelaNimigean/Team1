@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Team1Project.Data;
 
-namespace Team1Project.Data.Migrations
+namespace Team1Project.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210810110324_Teams")]
-    partial class Teams
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,6 +230,9 @@ namespace Team1Project.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("EmailAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GithubUsername")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")

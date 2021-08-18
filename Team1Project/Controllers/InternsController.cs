@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using Team1Project.Data;
@@ -59,7 +60,7 @@ namespace Team1Project.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,BirthDate,EmailAddress,TeamId")] Intern intern)
+        public async Task<IActionResult> Create([Bind("Id,Name,BirthDate,EmailAddress,TeamId,GithubUsername")] Intern intern)
         {
             if (ModelState.IsValid)
             {
@@ -212,19 +213,19 @@ namespace Team1Project.Controllers
         public List<string> ConvertResponseToRepositoriesList(string content)
         {
             List<string> repoLinks = new List<string>();
-            var json = JObject.Parse(content);
-            var jsonArray = json["full_name"];
+            /*var json = JObject.Parse(content);*/
+            var json = JsonConvert.DeserializeObject<List<JObject>>(content);
 
-            /*foreach (var repo in json)
+            foreach (var repo in json)
             {
                 if (repo["full_name"] == null)
-                                    {
+                {
                     throw new Exception("Username not valid.");
                 }
 
-                
-                repoLinks.Add()
-            }*/
+
+                repoLinks.Add(repo["full_name"].ToString());
+            }
 
             return repoLinks;
         }
