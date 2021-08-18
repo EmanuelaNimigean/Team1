@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     getAge();
+    getNumberOfRepos();
 })
 
 function getAge() {
@@ -17,3 +18,21 @@ function getAge() {
         }
     });
 }
+
+
+function getNumberOfRepos() {
+    var id = $("#getNumberOfRepos").children().attr("id");
+    $.ajax({
+        method: "GET",
+        url: "/Interns/GetNumberOfRepos",
+        data: {
+            "id": id
+        },
+
+        success: (resultGet) => {
+            $("#getNumberOfRepos").children().text(resultGet)
+
+        }
+    });
+}
+

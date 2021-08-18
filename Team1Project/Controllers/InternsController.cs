@@ -174,6 +174,19 @@ namespace Team1Project.Controllers
             return intern.getAge();
         }
 
+        [HttpGet]
+        public async Task<int> GetNumberOfRepos(int? id)
+        {
+            var intern = await _context.Intern
+            .Include(i => i.Team)
+            .FirstOrDefaultAsync(m => m.Id == id);
+            if (id == null)
+            {
+                return -1;
+            }
+            return GetPublicRepositories(intern.GithubUsername).Count;
+        }
+
         public async Task<IActionResult> ListRepos(int? id)
         {
             if (id == null)
