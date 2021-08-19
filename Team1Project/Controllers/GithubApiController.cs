@@ -11,6 +11,9 @@ using Team1Project.Data;
 
 namespace Team1Project.Controllers
 {
+    /// <summary>
+    /// Controller that performs api requests on <see href = "https://api.github.com/" > Github's public API </see> to extract specific data from an intern's github profile.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
 
@@ -23,6 +26,11 @@ namespace Team1Project.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Returns the number of public repositories of an intern's github profile. The intern is selected based on its id.
+        /// </summary>
+        /// <param name="id">Intern's id in database.</param>
+        /// <returns>An integer representing the number of public repositories.</returns>
         [HttpGet("GetNumberOfRepos/{id}")]
         public async Task<int> GetNumberOfRepos(int? id)
         {
@@ -37,6 +45,11 @@ namespace Team1Project.Controllers
 
         }
 
+        /// <summary>
+        /// Returns a list of urls to each public repository found on an intern's github profile. The intern is selected by its id.
+        /// </summary>
+        /// <param name="id">Intern's id in database.</param>
+        /// <returns>List of string urls, each representing a repository.</returns>
         [HttpGet("ListRepos/{id}")]
         public List<string> ListRepos(int? id)
         {
@@ -94,6 +107,12 @@ namespace Team1Project.Controllers
             return repoLinks;
         }
 
+
+        /// <summary>
+        /// Computes the number of commits made by a github user on public repositories during the current year.
+        /// </summary>
+        /// <param name="username">Github username</param>
+        /// <returns>An integer representing the number of repositories</returns>
         [HttpGet("GetUserCommits/{username}")]
         public int GetUserCommits(string username)
         {
