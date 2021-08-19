@@ -149,6 +149,7 @@ namespace Team1Project.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [NonAction]
         private bool TeamExists(int id)
         {
             return _context.Team.Any(e => e.Id == id);

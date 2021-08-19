@@ -9,17 +9,21 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using Team1Project.Data;
+using Team1Project.Exceptions;
 using Team1Project.Models;
 
 namespace Team1Project.Controllers
 {
+
     public class InternsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly GithubApiController githubApiController;
 
         public InternsController(ApplicationDbContext context)
         {
             _context = context;
+            githubApiController = new GithubApiController(context);
         }
 
         // GET: Interns
@@ -174,73 +178,18 @@ namespace Team1Project.Controllers
             return intern.getAge();
         }
 
-        [HttpGet]
-        public async Task<int> GetNumberOfRepos(int? id)
-        {
-            var intern = await _context.Intern
-            .Include(i => i.Team)
-            .FirstOrDefaultAsync(m => m.Id == id);
-            if (id == null)
-            {
-                return -1;
-            }
-            return GetPublicRepositories(intern.GithubUsername).Count;
-        }
-
-        public async Task<IActionResult> ListRepos(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var intern = await _context.Intern
-               .Include(i => i.Team)
-               .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (intern == null)
-            {
-                return NotFound();
-            }
-
-            var username = intern.GithubUsername;
+        public IActionResult ListRepos(int? id)
+        {   
 
             //apicall to git
-            List<string> repoLinks = GetPublicRepositories(username);
-            
+            List<string> repoLinks = githubApiController.ListRepos(id);
 
             return View(repoLinks);
         }
 
-        private List<string> GetPublicRepositories(string username)
+        public Task<int> GetNumberOfRepos(int? id)
         {
-            var client = new RestClient($"https://api.github.com/users/{username}/repos");
-            client.Timeout = -1;
-            var request = new RestRequest(Method.GET);
-            IRestResponse response = client.Execute(request);
-
-            return ConvertResponseToRepositoriesList(response.Content);
-        }
-
-        [NonAction]
-        public List<string> ConvertResponseToRepositoriesList(string content)
-        {
-            List<string> repoLinks = new List<string>();
-            /*var json = JObject.Parse(content);*/
-            var json = JsonConvert.DeserializeObject<List<JObject>>(content);
-
-            foreach (var repo in json)
-            {
-                if (repo["full_name"] == null)
-                {
-                    throw new Exception("Username not valid.");
-                }
-
-
-                repoLinks.Add($"https://github.com/{repo["full_name"]}");
-            }
-
-            return repoLinks;
+            return githubApiController.GetNumberOfRepos(id);
         }
     }
 }
