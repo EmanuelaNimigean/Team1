@@ -93,5 +93,64 @@ namespace Team1Project.Controllers
 
             return repoLinks;
         }
+
+        [HttpGet("GetUserCommits/{username}")]
+        public int GetUserCommits(string username)
+        {
+            int pageIndex = 1;
+            int responseSize = 0;
+            int numberOfCommitsThisYear = 0;
+
+            var client = new RestClient($"https://api.github.com/users/{username}/events");
+            var request = new RestRequest(Method.GET);
+            request.AddParameter("per_page", 100);
+
+            client.Timeout = -1;
+
+            do
+            {
+                request.AddParameter("page", pageIndex);
+                IRestResponse response = client.Execute(request);
+
+                var json = JsonConvert.DeserializeObject<List<JObject>>(response.Content);
+                responseSize = json.Count();
+
+                numberOfCommitsThisYear += CountCommitsFromEvents(json);
+
+                pageIndex++;
+
+            } while (responseSize > 0);
+
+            return numberOfCommitsThisYear;
+        }
+
+        [NonAction]
+        public int CountCommitsFromEvents(List<JObject> events)
+        {
+            int noCommits = 0;
+
+            foreach (var _event in events)
+            {
+                if (_event["type"].ToString().Equals("PushEvent") && happendThisYear(_event["created_at"].ToString()))
+                {
+                    noCommits += _event["payload"]["commits"].Count();
+                }
+
+            }
+
+            return noCommits;
+        }
+
+        [NonAction]
+        public bool happendThisYear(string eventDate)
+        {
+            // takes "2021" from "2021-08-19T10:23:10Z"
+            int eventYear = DateTime.Parse(eventDate).Year;
+            int month = DateTime.Parse(eventDate).Month;
+
+            return DateTime.Now.Year.Equals(eventYear) && DateTime.Now.Month.Equals(month);
+
+        }
+
     }
 }
