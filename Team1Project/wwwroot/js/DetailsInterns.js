@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     getAge();
     getNumberOfRepos();
+    getNumberOfCommits();
 })
 
 function getAge() {
@@ -31,6 +32,22 @@ function getNumberOfRepos() {
 
         success: (resultGet) => {
             $("#getNumberOfRepos").children().text(resultGet)
+
+        }
+    });
+}
+
+function getNumberOfCommits() {
+    var username = $("#githubUsername").text();
+    $.ajax({
+        method: "GET",
+        url: "/api/GithubApi/GetUserCommits/"+username ,
+
+        success: (resultGet) => {
+            var month = new Date().getMonth() + 1;
+            var avg = resultGet / month;
+            $("#numberOfCommits").text(resultGet);
+            $('#avgCommitsPerMonths').text(avg);
 
         }
     });
