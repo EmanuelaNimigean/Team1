@@ -2,7 +2,7 @@
 Web application implemented by Team1's members: Ema, Sorina, Patrick, Tudor, and Radu.
 
 ## Initial class diagram
-![alt text](./team1ClassDiagram.png)
+![alt text](https://raw.githubusercontent.com/EmanuelaNimigean/Team1/main/Team1Project/team1ClassDiagram.png)
 
 ## Implemented user stories
 
