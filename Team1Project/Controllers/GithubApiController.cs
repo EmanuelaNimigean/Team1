@@ -146,9 +146,8 @@ namespace Team1Project.Controllers
         {
             // takes "2021" from "2021-08-19T10:23:10Z"
             int eventYear = DateTime.Parse(eventDate).Year;
-            int month = DateTime.Parse(eventDate).Month;
 
-            return DateTime.Now.Year.Equals(eventYear) && DateTime.Now.Month.Equals(month);
+            return DateTime.Now.Year.Equals(eventYear);
 
         }
 
