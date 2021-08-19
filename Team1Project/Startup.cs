@@ -24,15 +24,27 @@ namespace Team1Project
         {
             Configuration = configuration;
         }
-
+       
         public IConfiguration Configuration { get; }
+
+        public static string ConvertHerokuStringToASPNETString(string herokuConnectionString)
+        {
+            var databaseUri = new Uri(herokuConnectionString);
+            var split = databaseUri.UserInfo.Split(':');
+            var username = split[0];
+            var password = split[1];
+            var database = databaseUri.LocalPath.Split('/')[1];
+            return $"Server={databaseUri.Host};Port={databaseUri.Port};Database={database};SslMode=Require;Trust Server Certificate=true;Integrated Security=true;User Id={username};Password={password};";
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var herokuConnectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
-                    Configuration.GetConnectionString("PostgresLocalConnection")));
+                    //ConvertHerokuStringToASPNETString(herokuConnectionString)));
+                    this.Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

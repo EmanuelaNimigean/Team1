@@ -5,14 +5,12 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["Team1Project/Team1Project.csproj", "Team1Project/"]
+COPY ["./Team1Project.csproj", "Team1Project/"]
 RUN dotnet restore "Team1Project/Team1Project.csproj"
-COPY . .
+COPY . ./Team1Project
 WORKDIR "/src/Team1Project"
 RUN dotnet build "Team1Project.csproj" -c Release -o /app/build
 
