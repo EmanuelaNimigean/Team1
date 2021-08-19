@@ -1,6 +1,8 @@
 # Team1's application
 Web application implemented by Team1's members: Ema, Sorina, Patrick, Tudor, and Radu.
 
+Available at: https://team-1-project.herokuapp.com/
+
 ## Initial class diagram
 ![alt text](https://raw.githubusercontent.com/EmanuelaNimigean/Team1/main/Team1Project/team1ClassDiagram.png)
 
