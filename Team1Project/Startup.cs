@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Team1Project.Data;
+using Team1Project.Services;
 
 namespace Team1Project
 {
@@ -50,6 +51,9 @@ namespace Team1Project
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
+            services.AddSignalR();
+            services.AddSingleton<ITeamBroadcastService, TeamBroadcastService>();
 
             services.AddSwaggerGen(c =>
             {

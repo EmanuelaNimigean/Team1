@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Team1Project.Data;
 using Team1Project.Models;
+using Team1Project.Services;
 
 namespace Team1Project.Controllers
 {
     public class TeamsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ITeamBroadcastService broadcastService;
 
-        public TeamsController(ApplicationDbContext context)
+        public TeamsController(ApplicationDbContext context, ITeamBroadcastService broadcastService)
         {
             _context = context;
+            this.broadcastService= broadcastService;
         }
 
         // GET: Teams
@@ -64,6 +67,8 @@ namespace Team1Project.Controllers
             {
                 _context.Add(team);
                 await _context.SaveChangesAsync();
+                broadcastService.NewTeamAdded(team.Id, team.JiraBoardUrl, team.Git, team.Emblem, team.Motto);
+                
                 return RedirectToAction(nameof(Index));
             }
             return View(team);
@@ -103,6 +108,7 @@ namespace Team1Project.Controllers
                 {
                     _context.Update(team);
                     await _context.SaveChangesAsync();
+                    broadcastService.TeamUpdated(team.Id, team.JiraBoardUrl, team.Git, team.Emblem, team.Motto);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -146,6 +152,8 @@ namespace Team1Project.Controllers
             var team = await _context.Team.FindAsync(id);
             _context.Team.Remove(team);
             await _context.SaveChangesAsync();
+            broadcastService.TeamDeleted(team.Id);
+
             return RedirectToAction(nameof(Index));
         }
 
