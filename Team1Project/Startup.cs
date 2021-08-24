@@ -98,6 +98,7 @@ namespace Team1Project
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapHub<TeamMessageHub>("/teamMessageHub");
             });
         }
     }
