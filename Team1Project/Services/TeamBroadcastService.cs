@@ -27,7 +27,7 @@ namespace Team1Project.Services
 
         public void TeamUpdated(int id, string jiraBoardUrl, string git, string emblem, string motto)
         {
-            messageHub.Clients.All.SendAsync("NewTeamAdded", id, jiraBoardUrl, git, emblem, motto);
+            messageHub.Clients.All.SendAsync("TeamUpdated", id, jiraBoardUrl, git, emblem, motto);
         }
     }
 }

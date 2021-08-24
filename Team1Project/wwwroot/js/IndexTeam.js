@@ -6,23 +6,23 @@ $(document).ready(function () {
         console.log("signalr connected");
     });
 
-    connection.on("NewTeamMemberAdded", createNewTeam);
-    connection.on("DeleteTeamMember", deleteTeam);
-    connection.on("UpdatedTeamMember", updateTeam);
+    connection.on("NewTeamAdded", createNewTeam);
+    connection.on("TeamDeleted", deleteTeam);
+    connection.on("TeamUpdated", updateTeam);
 });
 
 function createNewTeam(id, jiraBoardUrl, git, emblem, motto) {
     $("#teamTableBodyId").append(`<tr team-id="${id}">
-                <td>
+                <td team-jira="${id}">
                     ${jiraBoardUrl}
                 </td>
-                <td>
+                <td team-git="${id}">
                     ${git}
                 </td>
-                <td>
+                <td team-emblem="${id}">
                     ${emblem}
                 </td>
-                <td>
+                <td team-motto="${id}">
                     ${motto}
                 </td>
                 <td>
@@ -34,8 +34,11 @@ function createNewTeam(id, jiraBoardUrl, git, emblem, motto) {
 }
 
 function deleteTeam(id) {
-    $(`tbody[id=${id}]`).remove();
+    $(`tr[team-id=${id}]`).remove();
 }
-function updateTeam() {
-
+function updateTeam(id, jiraBoardUrl, git, emblem, motto) {
+    $(`td[team-jira=${id}]`).text(jiraBoardUrl);
+    $(`td[team-git=${id}]`).text(git);
+    $(`td[team-emblem=${id}]`).text(emblem);
+    $(`td[team-motto=${id}]`).text(motto);
 }

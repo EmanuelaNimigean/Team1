@@ -37,16 +37,16 @@
         @foreach (var item in Model)
         {
             <tr team-id="@item.Id">
-                <td>
+                <td team-jira="@item.Id">
                     @Html.DisplayFor(modelItem => item.JiraBoardUrl)
                 </td>
-                <td>
+                <td team-git="@item.Id">
                     @Html.DisplayFor(modelItem => item.Git)
                 </td>
-                <td>
+                <td team-emblem="@item.Id">
                     <img src="~/@Html.DisplayFor(modelItem =>item.Emblem)" style="height:80px;width:120px;" />
                 </td>
-                <td>
+                <td team-motto="@item.Id">
                     @Html.DisplayFor(modelItem => item.Motto)
                 </td>
                 <td>
