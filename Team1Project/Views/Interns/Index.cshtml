@@ -5,6 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section Scripts {
+    <script src="~/lib/microsoft-signalr/signalr.js"></script>
+    <script src="~/js/IndexIntern.js"></script>
+}
+
 <h1>Index</h1>
 
 <p>
@@ -32,30 +37,31 @@
             </th>
         </tr>
     </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BirthDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmailAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Team.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GithubUsername)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+    <tbody id="internTableBodyId">
+        @foreach (var item in Model)
+        {
+            <tr intern-id="@item.Id">
+                <td intern-name="@item.Id">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td intern-birthdate="@item.Id">
+                    @Html.DisplayFor(modelItem => item.BirthDate)
+                </td>
+                <td intern-emailaddress="@item.Id">
+                    @Html.DisplayFor(modelItem => item.EmailAddress)
+                </td>
+                <td intern-teamid="@item.Id">
+                    @Html.DisplayFor(modelItem => item.Team.Id)
+                </td>
+                <td intern-githubusername="@item.Id">
+                    @Html.DisplayFor(modelItem => item.GithubUsername)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

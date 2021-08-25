@@ -11,6 +11,7 @@ using RestSharp;
 using Team1Project.Data;
 using Team1Project.Exceptions;
 using Team1Project.Models;
+using Team1Project.Services;
 
 namespace Team1Project.Controllers
 {
@@ -19,11 +20,13 @@ namespace Team1Project.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly GithubApiController githubApiController;
+        private readonly IInternBroadcastService broadcastService;
 
-        public InternsController(ApplicationDbContext context)
+        public InternsController(ApplicationDbContext context, IInternBroadcastService broadcastService)
         {
             _context = context;
             githubApiController = new GithubApiController(context);
+            this.broadcastService = broadcastService;
         }
 
         // GET: Interns
@@ -70,6 +73,7 @@ namespace Team1Project.Controllers
             {
                 _context.Add(intern);
                 await _context.SaveChangesAsync();
+                broadcastService.InternAdded(intern.Id, intern.Name, intern.BirthDate, intern.EmailAddress, intern.GithubUsername, intern.TeamId);
                 return RedirectToAction(nameof(Index));
             }
             ViewData["TeamId"] = new SelectList(_context.Set<Team>(), "Id", "Id", intern.TeamId);
@@ -111,6 +115,7 @@ namespace Team1Project.Controllers
                 {
                     _context.Update(intern);
                     await _context.SaveChangesAsync();
+                    broadcastService.InternUpdated(intern.Id, intern.Name, intern.BirthDate, intern.EmailAddress, intern.GithubUsername, intern.TeamId);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -156,6 +161,7 @@ namespace Team1Project.Controllers
             var intern = await _context.Intern.FindAsync(id);
             _context.Intern.Remove(intern);
             await _context.SaveChangesAsync();
+            broadcastService.InternDeleted(intern.Id);
             return RedirectToAction(nameof(Index));
         }
 
