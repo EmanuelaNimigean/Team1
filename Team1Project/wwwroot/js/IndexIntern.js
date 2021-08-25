@@ -28,9 +28,9 @@ function createNewIntern(id, name, birthDate, emailAddress, githubUsername, team
                     ${githubUsername}
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a href="Interns/Edit/${id}">Edit</a> |
+                    <a href="Interns/Details/${id}">Details</a> |
+                    <a href="Interns/Delete/${id}">Delete</a>
                 </td>
             </tr>`);
 }
