@@ -1,7 +1,7 @@
 # Team1's application
 Web application implemented by Team1's members: Ema, Sorina, Patrick, Tudor, and Radu.
 
-Available at: https://team-1-project.herokuapp.com/
+Available at: http://p33-team-1-lab-work.herokuapp.com/
 
 ## Initial class diagram
 ![alt text](https://raw.githubusercontent.com/EmanuelaNimigean/Team1/main/Team1Project/team1ClassDiagram.png)
@@ -18,12 +18,12 @@ As user I want to see how many public projects each intern has in the github
 Open cmd in project's root folder and execute the following commands:
 
 ```
-docker build . -t team-1-project 
+docker build . -t p33_team_1_lab_work
 
 ```
 
 ```
-docker run -d -p 8081:80 --name team-1-project-container team-1-project
+docker run -d -p 8081:80 --name p33_team_1_lab_work_container p33_team_1_lab_work
 
 ```
 
@@ -56,12 +56,12 @@ heroku container:login
 
 Build the Dockerfile in the current directory and push the Docker image, "team-1-project" is the heroku application name.
 ```
-heroku container:push -a team-1-project web
+heroku container:push -a p33-team-1-lab-work web
 
 ```
 
 Release the newly pushed images to deploy the app.
 ```
-heroku container:release -a team-1-project web
+heroku container:release -a p33-team-1-lab-work web
 
 ```
