@@ -38,6 +38,20 @@ namespace Team1Project
             return $"Server={databaseUri.Host};Port={databaseUri.Port};Database={database};SslMode=Require;Trust Server Certificate=true;Integrated Security=true;User Id={username};Password={password};";
         }
 
+        // returns dbConnectionString from DATABASE_URL environment variable, or the PostgresHerokuConnection if the variable is not initialized
+        private string ObtainConnectionString()
+        {
+            string envVarDbString = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+            if (envVarDbString == null)
+            {
+                // return Configuration.GetConnectionString("PostgresHerokuConnection");
+                return Configuration.GetConnectionString("DefaultConnection");
+            }
+
+            return ConvertHerokuStringToASPNETString(envVarDbString);
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -45,7 +59,7 @@ namespace Team1Project
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
                     //ConvertHerokuStringToASPNETString(herokuConnectionString)));
-                    this.Configuration.GetConnectionString("DefaultConnection")));
+                    this.ObtainConnectionString()));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
