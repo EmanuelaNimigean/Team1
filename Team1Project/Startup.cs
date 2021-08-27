@@ -63,6 +63,7 @@ namespace Team1Project
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
 
@@ -80,6 +81,7 @@ namespace Team1Project
                 c.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
             });
 
+            AssignRoleProgramaticaly(services.BuildServiceProvider());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -116,6 +118,13 @@ namespace Team1Project
                 endpoints.MapHub<TeamMessageHub>("/teamMessageHub");
                 endpoints.MapHub<InternMessageHub>("/internMessageHub");
             });
+        }
+
+        private async void AssignRoleProgramaticaly(IServiceProvider services)
+        {
+            var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+            var user = await userManager.FindByNameAsync("tudor.pop@principal33.com");
+            await userManager.AddToRoleAsync(user, "Administrator");
         }
     }
 }
