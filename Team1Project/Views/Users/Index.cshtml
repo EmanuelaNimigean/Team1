@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 
-@model IEnumerable<UserDTO>
+@model UserTableDTO
 @inject SignInManager<IdentityUser> SignInManager
 
 @{
@@ -8,25 +8,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Users</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Role)
+                Role
             </th>
-            <th></th>
+            <th>
+                Assign role
+            </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Users)
         {
             <tr>
                 <td>
@@ -36,14 +35,20 @@
                     @Html.DisplayFor(modelItem => item.Role)
                 </td>
                 <td>
-                    @if (item.Role.Equals("Administrator"))
-                    {
-                        <a asp-action="AssignRegularUserRole" asp-route-id="@item.Id">Assign Regular User Role</a>
-                    }
-                    else
-                    {
-                        <a asp-action="AssignAdminRole" asp-route-id="@item.Id">Assign Administrator Role</a>
-                    }
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Assign a role
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            @foreach (var role in Model.Roles)
+                            {
+                                if (!item.Role.Equals(role.Name))
+                                {
+                                     <a class="dropdown-item" asp-action="AssignRole" asp-route-id="@item.Id" asp-route-currentRole="@item.Role" asp-route-newRole="@role.Name">@role.Name</a>
+                                }
+                            }
+                        </div>
+                    </div>
                 </td>
             </tr>
         }

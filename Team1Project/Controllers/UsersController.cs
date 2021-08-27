@@ -37,54 +37,22 @@ namespace HelloWorldWeb.Controllers
             return View(await GetUsersWithRole());
         }
 
-        // GET: Users/Details/[ugly string id]
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var user = await userManager.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return View(user);
-        }
-
-        // GET: Users/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        public async Task<IActionResult> AssignAdminRole(string id)
+        public async Task<IActionResult> AssignRole(string id, string currentRole, string newRole)
         {
             var user = await userManager.FindByIdAsync(id);
-            await userManager.AddToRoleAsync(user, "Administrator");
+            await userManager.RemoveFromRoleAsync(user, currentRole);
+            await userManager.AddToRoleAsync(user, newRole);
+
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> AssignRegularUserRole(string id)
-        {
-            var user = await userManager.FindByIdAsync(id);
-            await userManager.RemoveFromRoleAsync(user, "Administrator");
-            return RedirectToAction(nameof(Index));
-        }
-
-        private async Task<List<UserDTO>> GetUsersWithRole()
+        private async Task<UserTableDTO> GetUsersWithRole()
         {
             List<UserDTO> users = new List<UserDTO>();
             List<IdentityUser> usersWithRoles = new List<IdentityUser>();
 
             var allUsers = await userManager.Users.ToListAsync();
             var allRoles = await roleManager.Roles.ToListAsync();
-
-            var admins = await userManager.GetUsersInRoleAsync(ADMIN_ROLE);
-            var operators = await userManager.GetUsersInRoleAsync(OPERATOR_ROLE);
             
             foreach(var role in allRoles)
             {
@@ -102,8 +70,9 @@ namespace HelloWorldWeb.Controllers
             {
                 users.Add(new UserDTO(user.Id, user.Email, REGULAR_USER_ROLE));
             }
+            users.Sort((user1, user2) => user1.Email.CompareTo(user2.Email));
 
-            return users;
+            return new UserTableDTO(users, allRoles);
         }
     }
 }
