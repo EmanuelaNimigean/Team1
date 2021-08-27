@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Team1Project", "Team1Project\Team1Project.csproj", "{776D5CC2-0D6A-4F50-B75C-CA5884062572}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Team1Project.Test", "Team1Project.Test\Team1Project.Test.csproj", "{31CD6E35-A52E-42F4-99E7-7A60B0DC943C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Team1Project.Test", "Team1Project.Test\Team1Project.Test.csproj", "{31CD6E35-A52E-42F4-99E7-7A60B0DC943C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D70B4D8-9C18-46D4-83EE-81C9042F9254}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

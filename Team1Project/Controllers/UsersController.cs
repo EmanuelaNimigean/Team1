@@ -40,6 +40,14 @@ namespace HelloWorldWeb.Controllers
         public async Task<IActionResult> AssignRole(string id, string currentRole, string newRole)
         {
             var user = await userManager.FindByIdAsync(id);
+            if (currentRole.Equals("Administrator"))
+            {
+                var admins = await userManager.GetUsersInRoleAsync("Administrator");
+                if (admins.Count == 1)
+                {
+                    throw new Exception("You need to have at least one user with administrator role!!!!");
+                }
+            }
             await userManager.RemoveFromRoleAsync(user, currentRole);
             await userManager.AddToRoleAsync(user, newRole);
 
