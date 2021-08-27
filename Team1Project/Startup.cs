@@ -123,8 +123,15 @@ namespace Team1Project
         private async void AssignRoleProgramaticaly(IServiceProvider services)
         {
             var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
-            var user = await userManager.FindByNameAsync("tudor.pop@principal33.com");
-            await userManager.AddToRoleAsync(user, "Administrator");
+            try
+            {
+                var user = await userManager.FindByNameAsync("tudor.pop@principal33.com");
+                await userManager.AddToRoleAsync(user, "Administrator");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Edit the string connection in appsettings.json");
+            }
         }
     }
 }
