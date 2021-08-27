@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ using Team1Project.Services;
 
 namespace Team1Project.Controllers
 {
+    [Authorize]
 
     public class InternsController : Controller
     {
@@ -55,6 +57,7 @@ namespace Team1Project.Controllers
             return View(intern);
         }
 
+        [Authorize(Roles = "Operator")]
         // GET: Interns/Create
         public IActionResult Create()
         {
@@ -62,6 +65,7 @@ namespace Team1Project.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Operator")]
         // POST: Interns/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -80,6 +84,7 @@ namespace Team1Project.Controllers
             return View(intern);
         }
 
+        [Authorize(Roles = "Operator")]
         // GET: Interns/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -97,6 +102,7 @@ namespace Team1Project.Controllers
             return View(intern);
         }
 
+        [Authorize(Roles = "Operator")]
         // POST: Interns/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -134,6 +140,7 @@ namespace Team1Project.Controllers
             return View(intern);
         }
 
+        [Authorize(Roles = "Operator")]
         // GET: Interns/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -153,6 +160,7 @@ namespace Team1Project.Controllers
             return View(intern);
         }
 
+        [Authorize(Roles = "Operator")]
         // POST: Interns/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
