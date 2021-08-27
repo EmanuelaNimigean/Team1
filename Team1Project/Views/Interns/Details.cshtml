@@ -1,7 +1,7 @@
 ﻿@model Team1Project.Models.Intern
 
-@section Scripts{ 
-<script type="text/javascript" src="~/js/DetailsInterns.js"></script>
+@section Scripts{
+    <script type="text/javascript" src="~/js/DetailsInterns.js"></script>
 }
 
 @{
@@ -9,11 +9,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
 <h1>Details</h1>
 
 <div>
     <h4>Intern</h4>
-    <hr/>
+    <hr />
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
@@ -77,6 +80,9 @@
 </div>
 <hr>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    @if (User.IsInRole("Operator"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    }
     <a asp-action="Index">Back to List</a>
 </div>

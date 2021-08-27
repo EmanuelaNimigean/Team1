@@ -20,7 +20,7 @@ function createNewTeam(id, jiraBoardUrl, git, emblem, motto) {
                     ${git}
                 </td>
                 <td team-emblem="${id}">
-                    ${emblem}
+                    <img src="~/${emblem}" style="height:80px; width:120px;" />
                 </td>
                 <td team-motto="${id}">
                     ${motto}

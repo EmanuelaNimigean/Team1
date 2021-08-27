@@ -10,11 +10,16 @@
     <script src="~/js/IndexIntern.js"></script>
 }
 
-<h1>Index</h1>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h1>Index</h1>
+@if (User.IsInRole("Operator"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
 <table class="table">
     <thead>
         <tr>
@@ -57,10 +62,16 @@
                     @Html.DisplayFor(modelItem => item.GithubUsername)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+                    @if (User.IsInRole("Operator"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                    }
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    @if (User.IsInRole("Operator"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                    </td>
             </tr>
         }
     </tbody>
