@@ -53,9 +53,6 @@ namespace HelloWorldWeb.Controllers
 
             var allUsers = await userManager.Users.ToListAsync();
             var allRoles = await roleManager.Roles.ToListAsync();
-
-            var admins = await userManager.GetUsersInRoleAsync(ADMIN_ROLE);
-            var operators = await userManager.GetUsersInRoleAsync(OPERATOR_ROLE);
             
             foreach(var role in allRoles)
             {
