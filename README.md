@@ -52,15 +52,19 @@ dotnet build /p:AssemblyVersion={number_version}
 ```
 Replace ```number_version``` with the version that it will be build (e.g. 1.1.1.1)
 
+```
 docker build . -t p33_team_1_lab_work
 ```
+
 ```
 docker run -d -p 8081:80 --name p33_team_1_lab_work_container p33_team_1_lab_work
 ```
+
 3. Optional. Rename the docker container
 ```
 docker rename {initial_name} {desired_name}
 ```
+
 4. The app should work locally
 
 ## How to deploy to Heroku (Online)
