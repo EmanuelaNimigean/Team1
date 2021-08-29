@@ -26,9 +26,9 @@ function createNewTeam(id, jiraBoardUrl, git, emblem, motto) {
                     ${motto}
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="${id}">Edit</a> |
-                    <a asp-action="Details" asp-route-id="${id}">Details</a> |
-                    <a asp-action="Delete" asp-route-id="${id}">Delete</a>
+                    <a href="/Teams/Edit/${id}">Edit</a> |
+                    <a href="/Teams/Details/${id}">Details</a> |
+                    <a href="/Teams/Delete/${id}">Delete</a>
                 </td>
             </tr>`);
 }

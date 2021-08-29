@@ -8,6 +8,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section Scripts {
+    <script src="~/lib/microsoft-signalr/signalr.js"></script>
+    <script src="~/js/IndexUser.js"></script>
+}
+
 <h1>Users</h1>
 
 <table class="table">
@@ -27,11 +32,11 @@
     <tbody>
         @foreach (var item in Model.Users)
         {
-            <tr>
-                <td>
+            <tr user-id="@item.Id">
+                <td user-email="@item.Id">
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
-                <td>
+                <td user-role="@item.Id">
                     @Html.DisplayFor(modelItem => item.Role)
                 </td>
                 <td>
@@ -39,12 +44,12 @@
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Assign a role
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-menu" user-dropdown-menu="@item.Id" aria-labelledby="dropdownMenuButton">
                             @foreach (var role in Model.Roles)
                             {
                                 if (!item.Role.Equals(role.Name))
                                 {
-                                     <a class="dropdown-item" asp-action="AssignRole" asp-route-id="@item.Id" asp-route-currentRole="@item.Role" asp-route-newRole="@role.Name">@role.Name</a>
+                                    <a class="dropdown-item" role-name="@role.Name" asp-action="AssignRole" asp-route-id="@item.Id" asp-route-currentRole="@item.Role" asp-route-newRole="@role.Name">@role.Name</a>
                                 }
                             }
                         </div>

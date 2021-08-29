@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Team1Project.Models;
+using Team1Project.Services;
 
 namespace HelloWorldWeb.Controllers
 {
@@ -24,11 +25,13 @@ namespace HelloWorldWeb.Controllers
 
         private readonly UserManager<IdentityUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly IUserBroadcastService broadcastService;
 
-        public UsersController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public UsersController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IUserBroadcastService broadcastService)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
+            this.broadcastService = broadcastService;
         }
 
         // GET: Users
@@ -50,6 +53,7 @@ namespace HelloWorldWeb.Controllers
             }
             await userManager.RemoveFromRoleAsync(user, currentRole);
             await userManager.AddToRoleAsync(user, newRole);
+            broadcastService.UserRoleChanged(id, currentRole, newRole);
 
             return RedirectToAction(nameof(Index));
         }

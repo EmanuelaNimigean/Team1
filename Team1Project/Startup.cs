@@ -70,6 +70,7 @@ namespace Team1Project
             services.AddSignalR();
             services.AddSingleton<ITeamBroadcastService, TeamBroadcastService>();
             services.AddSingleton<IInternBroadcastService, InternBroadcastService>();
+            services.AddSingleton<IUserBroadcastService, UserBroadcastService>();
 
             services.AddSwaggerGen(c =>
             {
@@ -117,6 +118,7 @@ namespace Team1Project
                 endpoints.MapRazorPages();
                 endpoints.MapHub<TeamMessageHub>("/teamMessageHub");
                 endpoints.MapHub<InternMessageHub>("/internMessageHub");
+                endpoints.MapHub<UserMessageHub>("/userMessageHub");
             });
         }
 
