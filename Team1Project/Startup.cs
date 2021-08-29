@@ -71,6 +71,7 @@ namespace Team1Project
             services.AddSingleton<ITeamBroadcastService, TeamBroadcastService>();
             services.AddSingleton<IInternBroadcastService, InternBroadcastService>();
             services.AddSingleton<IUserBroadcastService, UserBroadcastService>();
+            services.AddSingleton<IRoleBroadcastService, RoleBroadcastService>();
 
             services.AddSwaggerGen(c =>
             {
@@ -127,10 +128,10 @@ namespace Team1Project
             var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
             try
             {
-                var user = await userManager.FindByNameAsync("tudor.pop@principal33.com");
+                var user = await userManager.FindByNameAsync("sorina.kupan@principal33.com");
                 await userManager.AddToRoleAsync(user, "Administrator");
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("Edit the string connection in appsettings.json");
             }

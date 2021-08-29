@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Team1Project.Services;
 
 namespace HelloWorldWeb.Controllers
 {
@@ -17,10 +18,12 @@ namespace HelloWorldWeb.Controllers
     public class RolesController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly IRoleBroadcastService broadcastService;
 
-        public RolesController(RoleManager<IdentityRole> roleManager)
+        public RolesController(RoleManager<IdentityRole> roleManager, IRoleBroadcastService broadcastService)
         {
             this.roleManager = roleManager;
+            this.broadcastService = broadcastService;
         }
 
         // GET: RolesController
@@ -49,6 +52,7 @@ namespace HelloWorldWeb.Controllers
             try
             {
                 await roleManager.CreateAsync(role);
+                broadcastService.RoleCreated(role.Id, role.Name);
                 return RedirectToAction(nameof(Index));
             }
             catch
