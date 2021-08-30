@@ -6,6 +6,7 @@
     });
 
     connection.on("UserRoleChanged", roleChanged);
+    connection.on("ErrorHasOccurred", errorHasOccurred);
 });
 
 function roleChanged(id, oldRole, newRole){
@@ -14,4 +15,8 @@ function roleChanged(id, oldRole, newRole){
     var menu = $(`div[user-dropdown-menu=${id}]`);
     menu.find(`a[role-name=${newRole}]`).remove();
     menu.append(`<a class="dropdown-item" role-name=${oldRole} href="/Users/AssignRole/${id}?currentRole=${newRole}&amp;newRole=${oldRole}">${oldRole}</a>`);
+}
+
+function errorHasOccurred(message) {
+    alert(message);
 }

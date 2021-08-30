@@ -45,12 +45,18 @@ As administrator you can:
 - assign users to role of operator or administrator to let them do their job
 
 ## How to deploy to DockerHub (Locally)
+
 1. Having docker account and docker application installed on your machine
-2. Open cmd in project's root folder and execute the following commands:
+2. Open docker file and enter current version
+
 ```
-dotnet build /p:AssemblyVersion={number_version}
+RUN dotnet build "Team1Project.csproj" -c Release -o /app/build /p:AssemblyVersion={number_version}
+RUN dotnet publish  "Team1Project.csproj" -c Release -o /app/publish /p:AssemblyVersion={number_version}
 ```
+
 Replace ```number_version``` with the version that it will be build (e.g. 1.1.1.1)
+
+3. Open cmd in project's root folder and execute the following commands:
 
 ```
 docker build . -t p33_team_1_lab_work
@@ -90,12 +96,6 @@ Now you can sign into Container Registry.
 ```
 heroku container:login
 ```
-
-Set the version of the app
-```
-dotnet build /p:AssemblyVersion={number_version}
-```
-Replace ```number_version``` with the version that it will be build (e.g. 1.1.1.1)
 
 Build the Dockerfile in the current directory and push the Docker image, "team-1-project" is the heroku application name.
 ```

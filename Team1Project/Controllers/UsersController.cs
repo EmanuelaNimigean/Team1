@@ -48,7 +48,8 @@ namespace HelloWorldWeb.Controllers
                 var admins = await userManager.GetUsersInRoleAsync("Administrator");
                 if (admins.Count == 1)
                 {
-                    throw new Exception("You need to have at least one user with administrator role!!!!");
+                    broadcastService.ErrorHasOccurred("You cannot unassign the last Administrator");
+                    return RedirectToAction(nameof(Index));
                 }
             }
             await userManager.RemoveFromRoleAsync(user, currentRole);

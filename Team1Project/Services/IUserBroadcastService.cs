@@ -8,5 +8,7 @@ namespace Team1Project.Services
     public interface IUserBroadcastService
     {
         public void UserRoleChanged(string id, string oldRole, string newRole);
+
+        public void ErrorHasOccurred(string message);
     }
 }

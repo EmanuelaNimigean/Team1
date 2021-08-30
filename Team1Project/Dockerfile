@@ -12,10 +12,10 @@ COPY ["./Team1Project.csproj", "Team1Project/"]
 RUN dotnet restore "Team1Project/Team1Project.csproj"
 COPY . ./Team1Project
 WORKDIR "/src/Team1Project"
-RUN dotnet build "Team1Project.csproj" -c Release -o /app/build
+RUN dotnet build "Team1Project.csproj" -c Release -o /app/build /p:AssemblyVersion=1.3
 
 FROM build AS publish
-RUN dotnet publish "Team1Project.csproj" -c Release -o /app/publish
+RUN dotnet publish  "Team1Project.csproj" -c Release -o /app/publish /p:AssemblyVersion=1.3
 
 FROM base AS final
 WORKDIR /app

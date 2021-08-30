@@ -19,5 +19,10 @@ namespace Team1Project.Services
         {
             messageHub.Clients.All.SendAsync("UserRoleChanged", id, oldRole, newRole);
         }
+
+        public void ErrorHasOccurred(string message)
+        {
+            messageHub.Clients.All.SendAsync("ErrorHasOccurred", message);
+        }
     }
 }
