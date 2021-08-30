@@ -22,7 +22,7 @@ As visitor you can:
 ### DevOps (not in database)
 As DevOps you can:
 
-- deploy the product with specific version so it can be deplyoed upon request
+- deploy the product with specific version so it can be deployed upon request
 
 
 ### User
