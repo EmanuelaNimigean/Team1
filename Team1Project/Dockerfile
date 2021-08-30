@@ -4,6 +4,7 @@
 #For more information, please see https://aka.ms/containercompat
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+ARG VERSION
 WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
@@ -12,10 +13,12 @@ COPY ["./Team1Project.csproj", "Team1Project/"]
 RUN dotnet restore "Team1Project/Team1Project.csproj"
 COPY . ./Team1Project
 WORKDIR "/src/Team1Project"
-RUN dotnet build "Team1Project.csproj" -c Release -o /app/build /p:AssemblyVersion=1.2
+RUN dotnet build "Team1Project.csproj" -c Release -o /app/build /p:AssemblyVersion=${VERSION}
 
 FROM build AS publish
-RUN dotnet publish  "Team1Project.csproj" -c Release -o /app/publish /p:AssemblyVersion=1.2
+ARG VERSION
+
+RUN dotnet publish  "Team1Project.csproj" -c Release -o /app/publish /p:AssemblyVersion=${VERSION}
 
 FROM base AS final
 WORKDIR /app
